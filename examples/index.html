@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বঙ্গাব্দ (Bongabdo) - Modern Bengali Calendar</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .example {
+            margin: 20px 0;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .example h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .bangla-date {
+            font-size: 18px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .code {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .format-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .format-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid #27ae60;
+        }
+        .format-card h4 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .raw-data {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>বঙ্গাব্দ (Bongabdo) - Modern Bengali Calendar</h1>
+        
+        <div class="example">
+            <h3>Today's Date (Default Format)</h3>
+            <div class="bangla-date" id="today-date"></div>
+            <div class="code">
+                bongabdo() // Returns today's date in default format
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>Specific Date (2024-01-15)</h3>
+            <div class="bangla-date" id="specific-date"></div>
+            <div class="code">
+                bongabdo('2024-01-15') // Convert specific date
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>With Season</h3>
+            <div class="bangla-date" id="with-season"></div>
+            <div class="code">
+                bongabdo('2024-01-15', { format: 'DD MM, YY (SS)', showSeason: true })
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>With Weekday</h3>
+            <div class="bangla-date" id="with-weekday"></div>
+            <div class="code">
+                bongabdo('2024-01-15', { format: 'DD MM, YY (WW)', showWeekDays: true })
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>Custom Format</h3>
+            <div class="bangla-date" id="custom-format"></div>
+            <div class="code">
+                bongabdo('2024-01-15', { format: 'DD-MM-YY' })
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>Raw Date Object</h3>
+            <div class="raw-data" id="raw-data"></div>
+            <div class="code">
+                getBanglaDate('2024-01-15') // Returns raw date object
+            </div>
+        </div>
+
+        <h2>Format Examples</h2>
+        <div class="format-examples">
+            <div class="format-card">
+                <h4>Only Month</h4>
+                <div class="bangla-date" id="only-month"></div>
+                <div class="code">format: 'MM'</div>
+            </div>
+            
+            <div class="format-card">
+                <h4>Only Year</h4>
+                <div class="bangla-date" id="only-year"></div>
+                <div class="code">format: 'YY'</div>
+            </div>
+            
+            <div class="format-card">
+                <h4>Only Season</h4>
+                <div class="bangla-date" id="only-season"></div>
+                <div class="code">format: 'SS', showSeason: true</div>
+            </div>
+            
+            <div class="format-card">
+                <h4>Only Weekday</h4>
+                <div class="bangla-date" id="only-weekday"></div>
+                <div class="code">format: 'WW', showWeekDays: true</div>
+            </div>
+        </div>
+
+        <div class="example">
+            <h3>Pahela Boishakh (Bengali New Year)</h3>
+            <div class="bangla-date" id="pahela-boishakh"></div>
+            <div class="code">
+                bongabdo('2024-04-14') // 1st Boishakh, 1431
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import the bongabdo library
+        import { bongabdo, getBanglaDate } from '../dist/index.mjs';
+
+        // Update all examples
+        document.getElementById('today-date').textContent = bongabdo();
+        document.getElementById('specific-date').textContent = bongabdo('2024-01-15');
+        document.getElementById('with-season').textContent = bongabdo('2024-01-15', { 
+            format: 'DD MM, YY (SS)', 
+            showSeason: true 
+        });
+        document.getElementById('with-weekday').textContent = bongabdo('2024-01-15', { 
+            format: 'DD MM, YY (WW)', 
+            showWeekDays: true 
+        });
+        document.getElementById('custom-format').textContent = bongabdo('2024-01-15', { 
+            format: 'DD-MM-YY' 
+        });
+        document.getElementById('raw-data').textContent = JSON.stringify(getBanglaDate('2024-01-15'), null, 2);
+        
+        // Format examples
+        document.getElementById('only-month').textContent = bongabdo('2024-01-15', { format: 'MM' });
+        document.getElementById('only-year').textContent = bongabdo('2024-01-15', { format: 'YY' });
+        document.getElementById('only-season').textContent = bongabdo('2024-01-15', { 
+            format: 'SS', 
+            showSeason: true 
+        });
+        document.getElementById('only-weekday').textContent = bongabdo('2024-01-15', { 
+            format: 'WW', 
+            showWeekDays: true 
+        });
+        
+        // Pahela Boishakh
+        document.getElementById('pahela-boishakh').textContent = bongabdo('2024-04-14');
+    </script>
+</body>
+</html> 
